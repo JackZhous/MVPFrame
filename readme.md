@@ -51,6 +51,29 @@ public interface LoginBehavior {
 
 ```java
 public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction> implements LoginBehavior.LoginView {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
+        showMessage(getStringValueFromLast("data", "null"));
+    }
+
+    @OnClick({R.id.btn_login})
+    public void onClick(View view){
+        int id = view.getId();
+
+        switch (id){
+            case R.id.btn_login:
+                getPresenter().login("1212", "password");
+        }
+    }
+
+    @Override
+    public void loginSuccess(String msg) {
+        showMessage("login success" + msg);
+    }
+
     //提供Activity的布局
     @Override
     protected int layout() {
@@ -77,7 +100,7 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction> imple
 }
 ```
 
-其中返修loginAction是标明presenter的类型，必须重写BaseActivity的四个方法，解释如注释；另外__为了方便Activity集中管理，使用ActFactory类集中生产new__
+其中返修loginAction是标明presenter的类型，必须重写BaseActivity的四个方法，解释如注释；另外 __为了方便Activity集中管理，使用ActFactory类集中生产new__
 
 3. 定义Presenter
 
