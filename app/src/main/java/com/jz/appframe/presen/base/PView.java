@@ -1,5 +1,7 @@
 package com.jz.appframe.presen.base;
 
+import android.arch.lifecycle.LifecycleObserver;
+
 /**
  * @author jackzhous
  * @package com.jz.appframe.presen.base
@@ -8,5 +10,5 @@ package com.jz.appframe.presen.base;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
-public interface PView {
+public interface PView extends LifecycleObserver {
 }

@@ -10,7 +10,7 @@ import com.jz.appframe.presen.LoginPresenter;
  * @package com.jz.appframe.presen.base
  * @filename PresenterFactory
  * date on 2019/2/21 9:18 AM
- * @describe TODO
+ * @describe presenter工程类
  * @email jackzhouyu@foxmail.com
  **/
 public class PresenterFactory {
@@ -23,7 +23,7 @@ public class PresenterFactory {
         this.dataManager = dataManager;
     }
 
-    public LoginBehavior.LoginAction createLoginPresenter(){
-        return new LoginPresenter(dataManager);
-    }
+//    public LoginBehavior.LoginAction createLoginPresenter(){
+//        return new LoginPresenter(dataManager);
+//    }
 }

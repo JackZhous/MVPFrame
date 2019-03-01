@@ -2,6 +2,9 @@ package com.jz.appframe;
 
 import android.app.Application;
 
+import com.jz.appframe.dagger.component.ApplicationComponent;
+import com.jz.appframe.dagger.component.DaggerApplicationComponent;
+import com.jz.appframe.dagger.module.ApplicationModule;
 import com.jz.appframe.data.DataManager;
 import com.jz.appframe.presen.base.PresenterFactory;
 
@@ -16,17 +19,28 @@ import com.jz.appframe.presen.base.PresenterFactory;
 public class MyApplication extends Application {
 
     private PresenterFactory presenterFactory;
-
+    private ApplicationComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        DataManager manager = new DataManager();
+//        DataManager manager = new DataManager();
+//
+//        presenterFactory = new PresenterFactory(manager);
 
-        presenterFactory = new PresenterFactory(manager);
+//
+//        appComponent = DaggerApplicationComponent.builder()
+//                                            .applicationModule(new ApplicationModule(this))
+//                                            .build();
+        appComponent = DaggerApplicationComponent.builder().application(this).build();
+        appComponent.injectApplication(this);
     }
 
+
+    public ApplicationComponent getAppComponent() {
+        return appComponent;
+    }
 
     public PresenterFactory getPresenterFactory() {
         return presenterFactory;

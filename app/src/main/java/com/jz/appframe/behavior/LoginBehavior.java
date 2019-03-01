@@ -18,6 +18,12 @@ public interface LoginBehavior {
 
     //动作发起
     interface LoginAction extends PresenterView<LoginView> {
+
+        /**
+         * 登录方法
+         * @param username 用户名
+         * @param passwd 密码
+         */
         void login(String username, String passwd);
     }
 

@@ -11,13 +11,14 @@ import io.reactivex.Observable;
  * @package com.jz.appframe.data
  * @filename DataManager
  * date on 2019/2/20 4:42 PM
- * @describe TODO
+ * @describe 底层数据控制中心
  * @email jackzhouyu@foxmail.com
  **/
 public class DataManager {
 
 
     private Apis apis;
+
 
     public DataManager() {
         apis = Apis.Factory.createService();

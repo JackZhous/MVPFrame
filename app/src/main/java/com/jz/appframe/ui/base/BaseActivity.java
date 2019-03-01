@@ -1,6 +1,7 @@
 package com.jz.appframe.ui.base;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,8 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.jz.appframe.MyApplication;
 import com.jz.appframe.behavior.base.CommView;
+import com.jz.appframe.dagger.component.DaggerLoginComponent;
+import com.jz.appframe.dagger.component.LoginComponent;
+import com.jz.appframe.helper.LogHelper;
 import com.jz.appframe.helper.ToastHelper;
 import com.jz.appframe.presen.base.PView;
+
+import javax.inject.Inject;
+
+import butterknife.ButterKnife;
 
 /**
  * @author jackzhous
@@ -19,32 +27,46 @@ import com.jz.appframe.presen.base.PView;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
-public abstract class BaseActivity<P extends PView>  extends AppCompatActivity implements CommView {
+public abstract class BaseActivity<P extends PView>  extends AppCompatActivity
+                                implements CommView,
+                                LifecycleOwner{
 
     private ProgressDialog dialog;
 
-    private P presenter;
+    @Inject
+    protected MyApplication application;
+
+    @Inject
+    protected P presenter;
 
     protected abstract int layout();             //Presenter布局文件
 
-    protected abstract void onDetach();          //Presenter收尾工作
+    /**
+     * 1. 初始化dagger依赖
+     * 2. inject此类
+     */
+    protected abstract void initComponent();
 
-    protected abstract void onAttach();         //Presenter绑定工作
 
-    protected abstract P provideP();            //创建presenter
-
-    public P getPresenter() {
-        return presenter;
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout());
-        presenter = provideP();
-        onAttach();
+        ButterKnife.bind(this);
+        initComponent();
+
+        if(this instanceof LifecycleOwner){
+            LogHelper.de_i("recylce ---------");
+            this.getLifecycle().addObserver(presenter);
+        }
+//        getLifecycle().addObserver(presenter);
     }
 
+    /**
+     * 自动显示消息内容
+     * @param msg 消息
+     */
     @Override
     public void showMessage(String msg) {
         ToastHelper.showMsg(msg, this);
@@ -58,7 +80,7 @@ public abstract class BaseActivity<P extends PView>  extends AppCompatActivity i
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        onDetach();
+        getLifecycle().removeObserver(presenter);
         presenter = null;
         closeDialog();
     }

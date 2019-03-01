@@ -67,7 +67,6 @@ public class RxTransformHelper {
         };
     }
 
-
     /**
      * ObservableTransformer 类型转换器用来在订阅的同时完成
      * @param view
