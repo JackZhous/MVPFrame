@@ -1,5 +1,7 @@
 package com.jz.appframe.data.local;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author jackzhous
  * @package com.jz.appframe.data.local
@@ -10,20 +12,41 @@ package com.jz.appframe.data.local;
  **/
 public class LoginRequest {
 
-    private String username;
+    @SerializedName("cmd")
+    private final String cmd = "login20170303";
+    @SerializedName("params")
+    private final ParamBean params = new ParamBean();
 
-    private String passwd;
+    public LoginRequest() {
 
-    public LoginRequest(String username, String passwd) {
-        this.username = username;
-        this.passwd = passwd;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public LoginRequest(String phoneNum, String code, String channelId) {
+        setMobile(phoneNum);
+        setAuthCode(code);
+        setChannelId(channelId);
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setMobile(String mobile) {
+        params.mobile = mobile;
+    }
+
+    public void setChannelId(String channelId) {
+        params.channelId = channelId;
+    }
+
+    public void setAuthCode(String authCode) {
+        params.authCode = authCode;
+    }
+
+    static class ParamBean {
+        @SerializedName("deviceType")
+        private String deviceType = "Android";
+        @SerializedName("channelId")
+        private String channelId;
+        @SerializedName("mobile")
+        private String mobile;
+        @SerializedName("code")
+        private String authCode;
     }
 }

@@ -6,8 +6,8 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.OnLifecycleEvent;
 
 import com.jz.appframe.behavior.base.CommView;
-import com.jz.appframe.data.DataManager;
 import com.jz.appframe.helper.LogHelper;
+import com.jz.appframe.module.base.IModule;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -19,63 +19,54 @@ import io.reactivex.disposables.CompositeDisposable;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
-public class BasePresenter<T extends CommView> implements PresenterView<T>{
+public class BasePresenter<M extends IModule, T extends CommView> implements PresenterView, LifecycleObserver{
     private T view;
+    private M module;
 
     //缓存响应者的引用
     protected CompositeDisposable disposableRaiser;
 
-    //网络库API
-    protected DataManager dataManager;
-
-    public BasePresenter(DataManager dataManager, T view) {
-        this.dataManager = dataManager;
+    public BasePresenter(M module, T view) {
+        this.module = module;
         this.view = view;
         disposableRaiser = new CompositeDisposable();
 
-//        bindLifcycle();
+        bindLifcycle();
     }
 
     public T getView() {
         return view;
     }
 
+    public M getModule() {
+        return module;
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     @Override
-    public void attach(T view) {
-//        this.view = view;
-        LogHelper.de_i("BasePresenter attach");
+    public void onCreate() {
+        LogHelper.de_i("BasePresenter onCreate");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     @Override
-    public void detach() {
-//        unBindLifecycle();
+    public void onDestroy(LifecycleOwner owner) {
+        owner.getLifecycle().removeObserver(this);
         view = null;
+        module = null;
         if (disposableRaiser != null && !disposableRaiser.isDisposed()){
             disposableRaiser.clear();
         }
         LogHelper.de_i("BasePresenter onDestroy");
     }
 
-
-//    /**
-//     * presenter绑定视图生命周期
-//     */
-//    private void bindLifcycle(){
-//        if(view instanceof LifecycleOwner){
-//            ((LifecycleOwner) view).getLifecycle().addObserver(this);
-//        }
-//    }
-//
-//    /**
-//     * 解绑生命周期
-//     */
-//    private void unBindLifecycle(){
-//        if(view instanceof LifecycleOwner){
-//            ((LifecycleOwner) view).getLifecycle().removeObserver(this);
-//        }
-//    }
-
-
+    /**
+     * presenter绑定视图生命周期
+     */
+    private void bindLifcycle(){
+        if(view instanceof LifecycleOwner){
+            ((LifecycleOwner) view).getLifecycle().addObserver(this);
+            ((LifecycleOwner) view).getLifecycle().addObserver(module);
+        }
+    }
 }

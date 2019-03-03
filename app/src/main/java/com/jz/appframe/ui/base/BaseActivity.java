@@ -56,11 +56,6 @@ public abstract class BaseActivity<P extends PView>  extends AppCompatActivity
         ButterKnife.bind(this);
         initComponent();
 
-        if(this instanceof LifecycleOwner){
-            LogHelper.de_i("recylce ---------");
-            this.getLifecycle().addObserver(presenter);
-        }
-//        getLifecycle().addObserver(presenter);
     }
 
     /**
@@ -80,7 +75,6 @@ public abstract class BaseActivity<P extends PView>  extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        getLifecycle().removeObserver(presenter);
         presenter = null;
         closeDialog();
     }

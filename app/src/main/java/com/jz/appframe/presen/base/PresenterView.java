@@ -1,5 +1,7 @@
 package com.jz.appframe.presen.base;
 
+import android.arch.lifecycle.LifecycleOwner;
+
 import com.jz.appframe.behavior.base.CommView;
 
 /**
@@ -11,11 +13,9 @@ import com.jz.appframe.behavior.base.CommView;
  * presenter基础行为
  * @email jackzhouyu@foxmail.com
  **/
-public interface PresenterView<T extends CommView> extends PView{
+public interface PresenterView extends PView{
 
-    void attach(T view);            //绑定行为
+    void onCreate();            //绑定行为
 
-    void detach();                 //解绑
-
-
+    void onDestroy(LifecycleOwner owner);                 //解绑
 }

@@ -1,5 +1,6 @@
 package com.jz.appframe.ui;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -36,16 +37,8 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction> imple
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogHelper.de_i("onCreate activity");
-        showMessage(getStringValueFromLast("data", "null"));
-        Log.i("j_tag", " activity " + this);
+        LogHelper.de_i("login application" + application);
 
-        if(application == null){
-            Log.i("j_tag", "null presenter");
-            return;
-        }else{
-            Log.i("j_tag", "not null presenter " + application);
-        }
     }
 
     @OnClick({R.id.btn_login})

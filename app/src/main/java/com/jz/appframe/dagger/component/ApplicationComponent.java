@@ -1,10 +1,9 @@
 package com.jz.appframe.dagger.component;
 
-import android.app.Application;
-
 import com.jz.appframe.MyApplication;
 import com.jz.appframe.dagger.module.ApplicationModule;
-import com.jz.appframe.data.DataManager;
+import com.jz.appframe.data.IServiceCreator;
+import com.jz.appframe.data.net.NetConfig;
 
 import javax.inject.Singleton;
 
@@ -28,7 +27,7 @@ public interface ApplicationComponent {
     //向第三Component提供application
     MyApplication getMyApplication();
 
-    DataManager getDataManager();
+    IServiceCreator getServiceCreator();
 
 
     /**
@@ -40,6 +39,8 @@ public interface ApplicationComponent {
     interface Builder {
         @BindsInstance
         Builder application(MyApplication application);
+        @BindsInstance
+        Builder netConfig(NetConfig config);
 
         ApplicationComponent build();
 

@@ -10,5 +10,5 @@ import android.arch.lifecycle.LifecycleObserver;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
-public interface PView extends LifecycleObserver {
+public interface PView  {
 }

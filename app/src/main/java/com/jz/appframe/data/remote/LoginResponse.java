@@ -1,5 +1,7 @@
 package com.jz.appframe.data.remote;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author jackzhous
  * @package com.jz.appframe.data.remote
@@ -10,35 +12,100 @@ package com.jz.appframe.data.remote;
  **/
 public class LoginResponse extends BaseResponse {
 
+    @SerializedName("detail")
+    private DetailBean detail;
 
-
-
-    private String token;
-    private String username;
-    private int createTime;
-
-
-    public String getToken() {
-        return token;
+    public DetailBean getDetail() {
+        return detail;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setDetail(DetailBean detail) {
+        this.detail = detail;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    public static class DetailBean {
+        @SerializedName("token")
+        private String token;
+        @SerializedName("user")
+        private UserBean user;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+        public String getToken() {
+            return token;
+        }
 
-    public int getCreateTime() {
-        return createTime;
-    }
+        public void setToken(String token) {
+            this.token = token;
+        }
 
-    public void setCreateTime(int createTime) {
-        this.createTime = createTime;
+        public UserBean getUser() {
+            return user;
+        }
+
+        public void setUser(UserBean user) {
+            this.user = user;
+        }
+
+        public static class UserBean {
+            @SerializedName("id")
+            private int id;
+            @SerializedName("balance")
+            private double balance;
+            @SerializedName("user_name")
+            private String userName;
+            @SerializedName("name")
+            private String name;
+            @SerializedName("type")
+            private int type;
+            @SerializedName("mobile")
+            private String mobile;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public double getBalance() {
+                return balance;
+            }
+
+            public void setBalance(double balance) {
+                this.balance = balance;
+            }
+
+            public String getUserName() {
+                return userName;
+            }
+
+            public void setUserName(String userName) {
+                this.userName = userName;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
+
+            public String getMobile() {
+                return mobile;
+            }
+
+            public void setMobile(String mobile) {
+                this.mobile = mobile;
+            }
+        }
     }
 }

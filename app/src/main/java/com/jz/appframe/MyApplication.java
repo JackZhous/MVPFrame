@@ -4,9 +4,9 @@ import android.app.Application;
 
 import com.jz.appframe.dagger.component.ApplicationComponent;
 import com.jz.appframe.dagger.component.DaggerApplicationComponent;
-import com.jz.appframe.dagger.module.ApplicationModule;
-import com.jz.appframe.data.DataManager;
-import com.jz.appframe.presen.base.PresenterFactory;
+import com.jz.appframe.data.net.NetConfig;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author jackzhous
@@ -18,7 +18,6 @@ import com.jz.appframe.presen.base.PresenterFactory;
  **/
 public class MyApplication extends Application {
 
-    private PresenterFactory presenterFactory;
     private ApplicationComponent appComponent;
 
     @Override
@@ -33,7 +32,10 @@ public class MyApplication extends Application {
 //        appComponent = DaggerApplicationComponent.builder()
 //                                            .applicationModule(new ApplicationModule(this))
 //                                            .build();
-        appComponent = DaggerApplicationComponent.builder().application(this).build();
+        appComponent = DaggerApplicationComponent.builder()
+                                        .application(this)
+                                        .netConfig(provideCinfig())
+                                        .build();
         appComponent.injectApplication(this);
     }
 
@@ -42,7 +44,14 @@ public class MyApplication extends Application {
         return appComponent;
     }
 
-    public PresenterFactory getPresenterFactory() {
-        return presenterFactory;
+    private NetConfig provideCinfig(){
+        return new NetConfig.Builder()
+                        .setUrl("www.taxiaides.com")
+                        .setSchmes("https://")
+                        .setPort(443)
+                        .setTimeout(10)
+                        .setUnit(TimeUnit.SECONDS)
+                        .build();
     }
+
 }

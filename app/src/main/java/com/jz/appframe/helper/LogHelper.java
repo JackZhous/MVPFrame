@@ -2,6 +2,8 @@ package com.jz.appframe.helper;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 /**
  * @author jackzhous
  * @package com.jz.appframe.helper
@@ -16,6 +18,11 @@ public class LogHelper {
 
     public static final void de_i(String msg){
         Log.i(TAG, msg);
+    }
+
+    public static final void de_i(Object msg){
+        String objMsg = new Gson().toJson(msg);
+        Log.i(TAG, objMsg);
     }
 
 }
