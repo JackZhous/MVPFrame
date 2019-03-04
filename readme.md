@@ -6,7 +6,7 @@
 
 ## 原理图
 
-![mvp.png](mvp.png)
+![mvp1.png](mvp1.png)
 
 ## 使用方法
 
