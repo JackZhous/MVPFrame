@@ -1,19 +1,14 @@
 package com.jz.appframe.ui.base;
 
 import android.app.ProgressDialog;
-import android.arch.lifecycle.LifecycleOwner;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.jz.appframe.MyApplication;
-import com.jz.appframe.behavior.base.CommView;
-import com.jz.appframe.dagger.component.DaggerLoginComponent;
-import com.jz.appframe.dagger.component.LoginComponent;
-import com.jz.appframe.helper.LogHelper;
-import com.jz.appframe.helper.ToastHelper;
-import com.jz.appframe.presen.base.PView;
+import com.jz.frame.MyApp;
+import com.jz.frame.help.ToastHelper;
+import com.jz.frame.mvp.p.IPresenter;
+import com.jz.frame.mvp.v.IView;
 
 import javax.inject.Inject;
 
@@ -27,19 +22,19 @@ import butterknife.ButterKnife;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
-public abstract class BaseActivity<P extends PView>  extends AppCompatActivity
-                                implements CommView,
-                                LifecycleOwner{
+public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActivity
+                                                    implements IView {
 
     private ProgressDialog dialog;
 
     @Inject
-    protected MyApplication application;
-
-    @Inject
     protected P presenter;
 
-    protected abstract int layout();             //Presenter布局文件
+    //自定义application时可以用这个实例强转
+    @Inject
+    MyApp myApp;
+
+    protected abstract int layout();             //布局文件
 
     /**
      * 1. 初始化dagger依赖
@@ -79,9 +74,10 @@ public abstract class BaseActivity<P extends PView>  extends AppCompatActivity
         closeDialog();
     }
 
-    protected MyApplication getMyApp(){
-        return (MyApplication)getApplication();
+    protected MyApp getMyApp(){
+        return (MyApp)getApplication();
     }
+
 
 
     protected String getStringValueFromLast(String key, String defaultValue){
@@ -117,21 +113,14 @@ public abstract class BaseActivity<P extends PView>  extends AppCompatActivity
 
 
     @Override
-    public void gotoActivity(Class object, boolean closed) {
-        Intent intent = new Intent(this, object);
-
-        startActivity(intent);
-
-        if(closed){
-            finish();
-        }
-    }
-
-    @Override
     public void closeDialog() {
         if(dialog != null && dialog.isShowing()){
             dialog.dismiss();
         }
     }
 
+    @Override
+    public void gotoLogin() {
+
+    }
 }

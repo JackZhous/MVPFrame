@@ -1,10 +1,9 @@
 package com.jz.appframe.dagger.module;
 
-import com.jz.appframe.behavior.LoginBehavior;
-import com.jz.appframe.module.UserModule;
-import com.jz.appframe.module.base.IModule;
-import com.jz.appframe.presen.IUserModule;
-import com.jz.appframe.presen.LoginPresenter;
+import com.jz.appframe.mvp.p.LoginBehavior;
+import com.jz.appframe.mvp.m.UserModule;
+import com.jz.appframe.mvp.m.IUserModule;
+import com.jz.appframe.mvp.p.LoginPresenter;
 
 import dagger.Binds;
 import dagger.Module;

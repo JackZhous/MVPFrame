@@ -1,16 +1,15 @@
 package com.jz.appframe.ui;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
 import com.jz.appframe.R;
-import com.jz.appframe.behavior.LoginBehavior;
 import com.jz.appframe.dagger.component.DaggerLoginComponent;
+import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.dagger.component.LoginComponent;
-import com.jz.appframe.helper.LogHelper;
+import com.jz.frame.help.LogHelper;
 import com.jz.appframe.ui.base.BaseActivity;
 
 import butterknife.OnClick;
@@ -28,7 +27,7 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction> imple
 
     protected void initComponent(){
         LoginComponent component =  DaggerLoginComponent.builder()
-                                    .appComponent(getMyApp().getAppComponent())
+                                    .appComponent(getMyApp().getComponent())
                                     .view(this)
                                     .build();
         component.inject(this);
@@ -37,7 +36,6 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction> imple
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogHelper.de_i("login application" + application);
 
     }
 

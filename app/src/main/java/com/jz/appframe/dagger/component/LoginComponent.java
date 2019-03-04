@@ -1,9 +1,10 @@
 package com.jz.appframe.dagger.component;
 
-import com.jz.appframe.behavior.LoginBehavior;
+import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.dagger.module.LoginModule;
-import com.jz.appframe.dagger.scope.ActivityScope;
 import com.jz.appframe.ui.LoginActivity;
+import com.jz.frame.dagger.component.MyAppComponent;
+import com.jz.frame.dagger.scope.ActivityScope;
 
 import dagger.BindsInstance;
 import dagger.Component;
@@ -17,7 +18,7 @@ import dagger.Component;
  * @email jackzhouyu@foxmail.com
  **/
 @ActivityScope
-@Component(modules = LoginModule.class, dependencies = ApplicationComponent.class)
+@Component(modules = LoginModule.class, dependencies = MyAppComponent.class)
 public interface LoginComponent {
 
     void inject(LoginActivity activity);
@@ -31,7 +32,7 @@ public interface LoginComponent {
     interface Builder{
         @BindsInstance
         Builder view(LoginBehavior.LoginView view);
-        Builder appComponent(ApplicationComponent component);
+        Builder appComponent(MyAppComponent component);
         LoginComponent build();
     }
 }
