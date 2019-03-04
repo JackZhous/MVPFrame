@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.jz.appframe.MyApplication;
 import com.jz.frame.MyApp;
 import com.jz.frame.help.ToastHelper;
 import com.jz.frame.mvp.p.IPresenter;
@@ -74,8 +75,8 @@ public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActiv
         closeDialog();
     }
 
-    protected MyApp getMyApp(){
-        return (MyApp)getApplication();
+    protected MyApplication getMyApp(){
+        return (MyApplication) getApplication();
     }
 
 

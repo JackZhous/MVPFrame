@@ -17,5 +17,4 @@ import io.reactivex.Observable;
 public interface IUserModule extends IModule {
 
     Observable<User> loginUser(String name, String passwd);
-
 }

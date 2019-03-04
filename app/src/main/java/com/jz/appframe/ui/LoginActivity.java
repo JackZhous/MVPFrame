@@ -22,7 +22,8 @@ import butterknife.OnClick;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
-public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction> implements LoginBehavior.LoginView {
+public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
+        implements LoginBehavior.LoginView {
 
 
     protected void initComponent(){

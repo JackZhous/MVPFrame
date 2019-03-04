@@ -4,12 +4,18 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.OnLifecycleEvent;
+import android.support.annotation.NonNull;
 
+import com.jz.frame.help.RxTransformHelper;
 import com.jz.frame.mvp.m.IModule;
 import com.jz.frame.mvp.v.IView;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author jackzhous
@@ -19,8 +25,8 @@ import io.reactivex.disposables.Disposable;
  * @describe 基础类presenter,完成声明周期的绑定以及初始化工作
  * @email jackzhouyu@foxmail.com
  **/
-public abstract class BasePresenter<M extends IModule, V extends IView> implements
-                                                    IPresenter {
+public abstract class BasePresenter<M extends IModule, V extends IView>
+                                                        implements IPresenter {
 
     private M module;
     private V view;
@@ -44,10 +50,17 @@ public abstract class BasePresenter<M extends IModule, V extends IView> implemen
         return view;
     }
 
-    protected void addDisposable(Disposable disposable){
+
+
+    protected <T> void moduleExecute(@NonNull final Observable<T> observable, final Consumer<T> onNext){
+        Disposable disposable = observable.subscribeOn(Schedulers.io())
+                .compose(RxTransformHelper.<T>ioMainProgress(getView(), "加载中", false))
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxTransformHelper.<T>ioMainException(getView()))
+                .subscribe(onNext);
+
         disposableRaiser.add(disposable);
     }
-
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     @Override

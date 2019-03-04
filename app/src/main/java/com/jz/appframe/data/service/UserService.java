@@ -17,7 +17,6 @@ import retrofit2.http.POST;
  **/
 public interface UserService {
 
-
     @POST("xyyc/app/")
     Observable<LoginResponse> login(@Body LoginRequest request);
 

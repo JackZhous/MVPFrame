@@ -1,18 +1,13 @@
 package com.jz.appframe.mvp.p;
 
 import com.jz.appframe.data.bean.User;
-import com.jz.frame.help.LogHelper;
-import com.jz.frame.help.RxTransformHelper;
 import com.jz.appframe.mvp.m.IUserModule;
 import com.jz.frame.dagger.scope.ActivityScope;
 import com.jz.frame.mvp.p.BasePresenter;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author jackzhous
@@ -32,24 +27,16 @@ public class LoginPresenter extends BasePresenter<IUserModule, LoginBehavior.Log
     @Inject
     public LoginPresenter(IUserModule module, LoginBehavior.LoginView view) {
         super(module, view);
-        LogHelper.de_i("login module " + getModule());
     }
 
 
     @Override
-    public void login(String username, String passwd) {
-        Disposable disposable = getModule().loginUser(username, passwd)
-                .subscribeOn(Schedulers.io())
-                .compose(RxTransformHelper.<User>ioMainProgress(getView(), "加载中", false))
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(RxTransformHelper.<User>ioMainException(getView()))
-                .subscribe(new Consumer<User>() {
-                    @Override
-                    public void accept(User loginResponse) throws Exception {
-                        getView().loginSuccess(loginResponse.getMessage());
-                    }
-                });
-
-        addDisposable(disposable);
+    public void login(final String username, String passwd) {
+        super.moduleExecute(getModule().loginUser(username, passwd), new Consumer<User>() {
+            @Override
+            public void accept(User user) throws Exception {
+                getView().loginSuccess(user.getMessage());
+            }
+        });
     }
 }
