@@ -6,7 +6,7 @@
 
 ## 原理图
 
-![mvp.png](mvp png)
+![mvp.png](mvp.png)
 
 ## 使用方法
 
@@ -32,7 +32,7 @@ allprojects {
  Add the dependency
 ```
 dependencies {
-	        implementation 'com.github.JackZhous:MVPFrame:v1.0'
+	        implementation 'com.github.JackZhous:MVPFrame:v1.1'
 	}
 ```
 
