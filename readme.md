@@ -38,7 +38,7 @@ allprojects {
  Add the dependency
 ```
 dependencies {
-	        implementation 'com.github.JackZhous:MVPFrame:v1.1'
+	        implementation 'com.github.JackZhous:MVPFrame:v1.2'
 	}
 ```
 
