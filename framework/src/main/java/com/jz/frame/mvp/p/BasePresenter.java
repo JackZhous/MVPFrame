@@ -74,6 +74,8 @@ public abstract class BasePresenter<M extends IModule, V extends IView>
         view = null;
         module = null;
         disposableRaiser.clear();
+
+        onPresenterDestroy();
     }
 
 
@@ -84,5 +86,9 @@ public abstract class BasePresenter<M extends IModule, V extends IView>
             view.getLifecycle().addObserver(this);
             view.getLifecycle().addObserver(module);
     }
+
+
+    //子类收尾清理方法
+    abstract protected void onPresenterDestroy();
 
 }

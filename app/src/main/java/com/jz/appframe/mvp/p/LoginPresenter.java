@@ -39,4 +39,9 @@ public class LoginPresenter extends BasePresenter<IUserModule, LoginBehavior.Log
             }
         });
     }
+
+    @Override
+    protected void onPresenterDestroy() {
+
+    }
 }

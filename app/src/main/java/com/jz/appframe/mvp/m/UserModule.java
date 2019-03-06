@@ -45,4 +45,9 @@ public class UserModule  extends BaseModule implements IUserModule {
                             }
                         });
     }
+
+    @Override
+    protected void onModuleDestroy() {
+
+    }
 }

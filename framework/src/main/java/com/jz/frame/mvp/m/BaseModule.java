@@ -31,5 +31,13 @@ public abstract class BaseModule implements IModule{
     public void onDestroy(LifecycleOwner owner) {
         owner.getLifecycle().removeObserver(this);
         serviceCreator = null;
+
+        onModuleDestroy();
     }
+
+
+    //子类收尾清理函数
+    protected abstract void onModuleDestroy();
+
+
 }
