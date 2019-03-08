@@ -1,12 +1,21 @@
 package com.jz.appframe.mvp.p;
 
+import android.Manifest;
+import android.util.Log;
+
 import com.jz.appframe.data.bean.User;
 import com.jz.appframe.mvp.m.IUserModule;
 import com.jz.frame.dagger.scope.ActivityScope;
+import com.jz.frame.help.LogHelper;
 import com.jz.frame.mvp.p.BasePresenter;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -25,6 +34,9 @@ public class LoginPresenter extends BasePresenter<IUserModule, LoginBehavior.Log
                                                     implements  LoginBehavior.LoginAction{
 
     @Inject
+    RxPermissions permissions;
+
+    @Inject
     public LoginPresenter(IUserModule module, LoginBehavior.LoginView view) {
         super(module, view);
     }
@@ -38,6 +50,27 @@ public class LoginPresenter extends BasePresenter<IUserModule, LoginBehavior.Log
                 getView().loginSuccess(user.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onCreate() {
+
+        Disposable disposable =  permissions.requestEach(Manifest.permission.CAMERA)
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        if(permission.granted){
+                            LogHelper.de_i("granted");
+                        }else if(permission.shouldShowRequestPermissionRationale){
+                            LogHelper.de_i("shouldShowRequestPermissionRationale");
+                        }else {
+                            LogHelper.de_i("deny");
+                        }
+                    }
+                });
+
+        addDisposable(disposable);
+
     }
 
     @Override

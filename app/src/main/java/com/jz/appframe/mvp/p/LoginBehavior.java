@@ -1,6 +1,8 @@
 package com.jz.appframe.mvp.p;
 
+
 import com.jz.frame.mvp.p.IPresenter;
+import com.jz.frame.mvp.v.IActivityView;
 import com.jz.frame.mvp.v.IView;
 
 /**
@@ -28,7 +30,7 @@ public interface LoginBehavior {
     }
 
     //动作响应
-    interface LoginView extends IView {
+    interface LoginView extends IView , IActivityView {
         void loginSuccess(String msg);
     }
 

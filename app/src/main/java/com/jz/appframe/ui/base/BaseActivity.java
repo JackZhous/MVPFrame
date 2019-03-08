@@ -1,5 +1,6 @@
 package com.jz.appframe.ui.base;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import com.jz.appframe.MyApplication;
 import com.jz.frame.MyApp;
 import com.jz.frame.help.ToastHelper;
 import com.jz.frame.mvp.p.IPresenter;
+import com.jz.frame.mvp.v.IActivityView;
 import com.jz.frame.mvp.v.IView;
 
 import javax.inject.Inject;
@@ -24,7 +26,7 @@ import butterknife.ButterKnife;
  * @email jackzhouyu@foxmail.com
  **/
 public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActivity
-                                                    implements IView {
+                                                    implements IView, IActivityView {
 
     private ProgressDialog dialog;
 
@@ -118,6 +120,11 @@ public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActiv
         if(dialog != null && dialog.isShowing()){
             dialog.dismiss();
         }
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
     }
 
     @Override

@@ -1,5 +1,15 @@
 package com.jz.appframe.ui;
 
+/**
+ * @author jackzhous
+ * @package com.jz.appframe.ui
+ * @filename LoginActivity
+ * date on 2019/3/8 9:42 AM
+ * @describe TODO
+ * @email jackzhouyu@foxmail.com
+ **/
+
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -7,36 +17,33 @@ import android.view.View;
 
 import com.jz.appframe.R;
 import com.jz.appframe.dagger.component.DaggerLoginComponent;
-import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.dagger.component.LoginComponent;
-import com.jz.frame.help.LogHelper;
+import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.ui.base.BaseActivity;
+import com.jz.frame.help.LogHelper;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import javax.inject.Inject;
 
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
-/**
- * @author jackzhous
- * @package com.jz.appframe.ui
- * @filename LoginActivity
- * date on 2019/2/20 4:25 PM
- * @describe TODO
- * @email jackzhouyu@foxmail.com
- **/
 public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
-        implements LoginBehavior.LoginView {
-
+                                        implements LoginBehavior.LoginView {
 
     protected void initComponent(){
         LoginComponent component =  DaggerLoginComponent.builder()
-                                    .appComponent(getMyApp().getComponent())
-                                    .view(this)
-                                    .build();
+                .appComponent(getMyApp().getComponent())
+                .view(this)
+                .build();
         component.inject(this);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 

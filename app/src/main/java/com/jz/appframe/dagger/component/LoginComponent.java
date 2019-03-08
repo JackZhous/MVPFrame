@@ -1,5 +1,7 @@
 package com.jz.appframe.dagger.component;
 
+import android.app.Activity;
+
 import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.dagger.module.LoginModule;
 import com.jz.appframe.ui.LoginActivity;
@@ -31,7 +33,7 @@ public interface LoginComponent {
     @Component.Builder
     interface Builder{
         @BindsInstance
-        Builder view(LoginBehavior.LoginView view);
+        Builder view(LoginBehavior.LoginView view);         //注入接口
         Builder appComponent(MyAppComponent component);
         LoginComponent build();
     }

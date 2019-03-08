@@ -91,4 +91,9 @@ public abstract class BasePresenter<M extends IModule, V extends IView>
     //子类收尾清理方法
     abstract protected void onPresenterDestroy();
 
+
+    protected void addDisposable(Disposable disposable){
+        disposableRaiser.add(disposable);
+    }
+
 }
