@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">AppFrame</string>
     <string name="click">点我试试</string>
+    <string name="test">这是一个test的页面</string>
+
+    <string name="noData">没有数据</string>
 </resources>

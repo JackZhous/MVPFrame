@@ -1,10 +1,8 @@
 package com.jz.appframe.dagger.component;
 
-import android.app.Activity;
-
 import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.dagger.module.LoginModule;
-import com.jz.appframe.ui.LoginActivity;
+import com.jz.appframe.ui.activity.LoginActivity;
 import com.jz.frame.dagger.component.MyAppComponent;
 import com.jz.frame.dagger.scope.ActivityScope;
 

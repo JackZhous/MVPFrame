@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.jz.appframe.ui.LoginActivity;
+import com.jz.appframe.ui.activity.LoginActivity;
 import com.jz.frame.help.ActBuilder;
 
 import butterknife.ButterKnife;

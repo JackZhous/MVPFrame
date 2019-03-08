@@ -1,4 +1,4 @@
-package com.jz.appframe.ui;
+package com.jz.appframe.ui.activity;
 
 /**
  * @author jackzhous
@@ -9,9 +9,6 @@ package com.jz.appframe.ui;
  * @email jackzhouyu@foxmail.com
  **/
 
-import android.Manifest;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
@@ -21,18 +18,15 @@ import com.jz.appframe.dagger.component.LoginComponent;
 import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.ui.base.BaseActivity;
 import com.jz.frame.help.LogHelper;
-import com.tbruyelle.rxpermissions2.Permission;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
 
 import butterknife.OnClick;
-import io.reactivex.functions.Consumer;
 
 public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
                                         implements LoginBehavior.LoginView {
 
-    protected void initComponent(){
+    protected void initDagger(){
         LoginComponent component =  DaggerLoginComponent.builder()
                 .appComponent(getMyApp().getComponent())
                 .view(this)
@@ -40,12 +34,7 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
         component.inject(this);
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-
-    }
 
     @OnClick({R.id.btn_login})
     public void onClick(View view){

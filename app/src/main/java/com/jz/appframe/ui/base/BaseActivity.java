@@ -43,7 +43,7 @@ public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActiv
      * 1. 初始化dagger依赖
      * 2. inject此类
      */
-    protected abstract void initComponent();
+    protected abstract void initDagger();
 
 
 
@@ -52,7 +52,7 @@ public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActiv
         super.onCreate(savedInstanceState);
         setContentView(layout());
         ButterKnife.bind(this);
-        initComponent();
+        initDagger();
 
     }
 
