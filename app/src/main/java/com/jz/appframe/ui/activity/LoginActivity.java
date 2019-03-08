@@ -19,7 +19,6 @@ import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.ui.base.BaseActivity;
 import com.jz.frame.help.LogHelper;
 
-import javax.inject.Inject;
 
 import butterknife.OnClick;
 
@@ -48,6 +47,11 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
         switch (id){
             case R.id.btn_login:
                 presenter.login("1212", "password");
+                break;
+
+            case R.id.btn_fragment:
+
+                break;
         }
     }
 

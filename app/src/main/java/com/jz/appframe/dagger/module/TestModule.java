@@ -1,6 +1,7 @@
 package com.jz.appframe.dagger.module;
 
 import com.jz.appframe.adapter.TestAdapter;
+import com.jz.appframe.mvp.m.ITestModule;
 import com.jz.appframe.mvp.m.IUserModule;
 import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.mvp.p.LoginPresenter;
@@ -28,11 +29,11 @@ public abstract class TestModule {
 
 
     @Binds
-    abstract IUserModule bindModule(com.jz.appframe.mvp.m.TestModule module);
+    abstract ITestModule bindModule(com.jz.appframe.mvp.m.TestModule module);
 
     @FragmentScope
     @Provides
-    TestAdapter providAdapter(TestBehavior.TestView view){
+    static TestAdapter providAdapter(TestBehavior.TestView view){
         return new TestAdapter(view.getFragmentContext());
     }
 }

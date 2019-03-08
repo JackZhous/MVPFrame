@@ -1,11 +1,11 @@
 package com.jz.appframe.dagger.component;
 
-import android.app.Activity;
 
 import com.jz.appframe.dagger.module.TestModule;
 import com.jz.appframe.mvp.p.TestBehavior;
 import com.jz.appframe.ui.fragment.TestFragment;
 import com.jz.frame.dagger.component.MyAppComponent;
+import com.jz.frame.dagger.scope.FragmentScope;
 
 import dagger.BindsInstance;
 import dagger.Component;
@@ -18,6 +18,7 @@ import dagger.Component;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
+@FragmentScope
 @Component(modules = TestModule.class, dependencies = MyAppComponent.class)
 public interface TestCompont {
 
@@ -27,8 +28,8 @@ public interface TestCompont {
     @Component.Builder
     interface Builder{
         @BindsInstance
-        LoginComponent.Builder view(TestBehavior.TestView view);         //注入接口
-        LoginComponent.Builder appComponent(MyAppComponent component);
-        LoginComponent build();
+        TestCompont.Builder view(TestBehavior.TestView view);         //注入接口
+        TestCompont.Builder appComponent(MyAppComponent component);
+        TestCompont build();
     }
 }

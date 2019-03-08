@@ -1,6 +1,7 @@
 package com.jz.appframe.mvp.p;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -40,7 +41,8 @@ public class TestPresenter extends BasePresenter<ITestModule, TestBehavior.TestV
     public void initRecycle(EasyRecyclerView recyclerView,
                             RecyclerArrayAdapter.OnLoadMoreListener load,
                             SwipeRefreshLayout.OnRefreshListener fresh) {
-        recyclerView.setLayoutManager(new );
+        recyclerView.setLayoutManager(new LinearLayoutManager(getView().getFragmentContext(),
+                            LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapterWithProgress(adapter);
 
         adapter.setMore(R.layout.recycler_item_more, load);
