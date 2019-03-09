@@ -36,7 +36,7 @@ public interface TestBehavior {
 
     //动作响应
     interface TestView extends IView, IFragmentView {
-//        void loginSuccess(String msg);
+        void showRecycleStatus(byte status);
     }
 
 }

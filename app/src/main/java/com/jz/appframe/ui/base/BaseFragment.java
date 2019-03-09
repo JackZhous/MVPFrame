@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.jz.appframe.MyApplication;
 import com.jz.frame.help.ToastHelper;
 import com.jz.frame.mvp.p.IPresenter;
 import com.jz.frame.mvp.v.IFragmentView;
@@ -42,6 +43,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment
     protected abstract int provideLayout();
 
     protected abstract void initDagger();
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -123,5 +126,9 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment
     @Override
     public Activity getFragmentContext() {
         return getActivity();
+    }
+
+    protected MyApplication getMyApp(){
+        return (MyApplication) getActivity().getApplication();
     }
 }

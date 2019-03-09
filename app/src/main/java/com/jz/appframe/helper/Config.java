@@ -16,4 +16,8 @@ public interface Config {
     int TOKEN_EXPRIED = -1;             //token过期
 
     int ACT_LOGIN = 1;                  //登录页面
+
+    byte STATUS_ERROR = 1;
+
+    byte STATUS_NO_MORE = 2;
 }

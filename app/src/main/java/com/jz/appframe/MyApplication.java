@@ -28,9 +28,9 @@ public class MyApplication extends MyApp {
     @Override
     public NetConfig initNetConfig() {
         return new NetConfig.Builder()
-                .setUrl("www.baidu.com")
-                .setSchmes("https://")
-                .setPort(443)
+                .setUrl("www.qubaobei.com")
+                .setSchmes("http://")
+                .setPort(80)
                 .setTimeout(10)
                 .setUnit(TimeUnit.SECONDS)
                 .build();

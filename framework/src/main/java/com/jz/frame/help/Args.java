@@ -1,5 +1,12 @@
 package com.jz.frame.help;
 
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+
 /**
  * @author jackzhous
  * @package com.jack.util
@@ -22,6 +29,18 @@ public class Args {
         }
     }
 
+    /**
+     * replace方式打开一个fragment
+     */
+    public static void replaceFragment(FragmentActivity context, Fragment fragment, int resId){
+        empty(context, "replace fragment");
+        empty(fragment, "replace fragment");
+
+        FragmentManager manager = context.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(resId, fragment);
+        transaction.commit();
+    }
 
 
 }

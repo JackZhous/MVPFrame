@@ -127,3 +127,5 @@ __每层每个类具体的逻辑如何请参考项目demo__
 
 继承框架的MyApp Application，重写netconfig方法，配置服务器地址及连接属性的
 
+
+http://www.qubaobei.com/ios/cf/dish_list.php?stage_id=1&limit=2&page=1

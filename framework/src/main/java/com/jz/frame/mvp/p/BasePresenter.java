@@ -11,6 +11,7 @@ import com.jz.frame.mvp.m.IModule;
 import com.jz.frame.mvp.v.IView;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -60,6 +61,13 @@ public abstract class BasePresenter<M extends IModule, V extends IView>
                 .subscribe(onNext);
 
         disposableRaiser.add(disposable);
+    }
+
+    protected <T> void moduleExecute(@NonNull final Observable<T> observable, final Observer<T> onNext){
+        observable.subscribeOn(Schedulers.io())
+                .compose(RxTransformHelper.<T>ioMainProgress(getView(), "加载中", false))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onNext);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

@@ -17,6 +17,8 @@ import com.jz.appframe.dagger.component.DaggerLoginComponent;
 import com.jz.appframe.dagger.component.LoginComponent;
 import com.jz.appframe.mvp.p.LoginBehavior;
 import com.jz.appframe.ui.base.BaseActivity;
+import com.jz.appframe.ui.fragment.TestFragment;
+import com.jz.frame.help.Args;
 import com.jz.frame.help.LogHelper;
 
 
@@ -35,7 +37,7 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
 
 
 
-    @OnClick({R.id.btn_login})
+    @OnClick({R.id.btn_login, R.id.btn_fragment})
     public void onClick(View view){
         int id = view.getId();
         if(presenter == null){
@@ -50,7 +52,7 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
                 break;
 
             case R.id.btn_fragment:
-
+                Args.replaceFragment(this, TestFragment.newInstance(), R.id.container);
                 break;
         }
     }
