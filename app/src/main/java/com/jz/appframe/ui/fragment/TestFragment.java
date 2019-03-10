@@ -6,11 +6,9 @@ import android.view.View;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jz.appframe.R;
-import com.jz.appframe.dagger.component.DaggerTestCompont;
-import com.jz.appframe.dagger.component.TestCompont;
-import com.jz.appframe.dagger.module.TestModule;
 import com.jz.appframe.helper.Config;
-import com.jz.appframe.mvp.p.TestBehavior;
+import com.jz.appframe.helper.FactoryPresenter;
+import com.jz.appframe.presenter.behavior.TestBehavior;
 import com.jz.appframe.ui.base.BaseFragment;
 
 import butterknife.BindView;
@@ -45,14 +43,7 @@ public class TestFragment extends BaseFragment<TestBehavior.TestAction>
         return R.layout.fragment_test;
     }
 
-    @Override
-    protected void initDagger() {
-        TestCompont compont = DaggerTestCompont.builder()
-                                                .view(this)
-                                                .appComponent(getMyApp().getComponent())
-                                                .build();
-        compont.inject(this);
-    }
+
 
     @Override
     public void onRefresh() {
@@ -84,5 +75,10 @@ public class TestFragment extends BaseFragment<TestBehavior.TestAction>
             case Config.STATUS_NO_MORE:
                 recyclerView.showEmpty();
         }
+    }
+
+    @Override
+    protected TestBehavior.TestAction providePresenter() {
+        return FactoryPresenter.getInstance().testPresenter();
     }
 }

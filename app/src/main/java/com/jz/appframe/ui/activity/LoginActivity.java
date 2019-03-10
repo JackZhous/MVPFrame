@@ -13,9 +13,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.jz.appframe.R;
-import com.jz.appframe.dagger.component.DaggerLoginComponent;
-import com.jz.appframe.dagger.component.LoginComponent;
-import com.jz.appframe.mvp.p.LoginBehavior;
+import com.jz.appframe.helper.FactoryPresenter;
+import com.jz.appframe.presenter.behavior.LoginBehavior;
 import com.jz.appframe.ui.base.BaseActivity;
 import com.jz.appframe.ui.fragment.TestFragment;
 import com.jz.frame.help.Args;
@@ -26,14 +25,6 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
                                         implements LoginBehavior.LoginView {
-
-    protected void initDagger(){
-        LoginComponent component =  DaggerLoginComponent.builder()
-                .appComponent(getMyApp().getComponent())
-                .view(this)
-                .build();
-        component.inject(this);
-    }
 
 
 
@@ -72,5 +63,10 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
     protected void onDestroy() {
         super.onDestroy();
         LogHelper.de_i("activity onDestroy");
+    }
+
+    @Override
+    protected LoginBehavior.LoginAction providePresenter() {
+        return FactoryPresenter.getInstance().loginPresenter();
     }
 }

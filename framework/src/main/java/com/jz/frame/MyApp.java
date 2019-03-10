@@ -3,8 +3,6 @@ package com.jz.frame;
 import android.app.Application;
 
 import com.jz.frame.config.NetConfig;
-import com.jz.frame.dagger.component.DaggerMyAppComponent;
-import com.jz.frame.dagger.component.MyAppComponent;
 
 /**
  * @author jackzhous
@@ -17,22 +15,11 @@ import com.jz.frame.dagger.component.MyAppComponent;
  **/
 public abstract class MyApp extends Application {
 
-    private MyAppComponent component;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        component = DaggerMyAppComponent.builder()
-                                        .application(this)
-                                        .netConfig(initNetConfig())
-                                        .build();
-
-        component.inject(this);
-    }
-
-    public MyAppComponent getComponent(){
-        return component;
     }
 
 

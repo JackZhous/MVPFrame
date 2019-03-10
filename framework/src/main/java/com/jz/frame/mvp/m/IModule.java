@@ -11,9 +11,7 @@ import android.arch.lifecycle.LifecycleOwner;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
-public interface IModule extends LifecycleObserver {
+public interface IModule {
 
-
-    void onDestroy(LifecycleOwner owner);
 
 }

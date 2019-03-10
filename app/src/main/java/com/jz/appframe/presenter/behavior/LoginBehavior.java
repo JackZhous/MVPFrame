@@ -1,5 +1,7 @@
-package com.jz.appframe.mvp.p;
+package com.jz.appframe.presenter.behavior;
 
+
+import android.support.v4.app.FragmentActivity;
 
 import com.jz.frame.mvp.p.IPresenter;
 import com.jz.frame.mvp.v.IActivityView;
@@ -19,7 +21,8 @@ import com.jz.frame.mvp.v.IView;
 public interface LoginBehavior {
 
     //动作发起
-    interface LoginAction extends IPresenter {
+    interface LoginAction extends IPresenter<LoginView> {
+
 
         /**
          * 登录方法
@@ -27,6 +30,13 @@ public interface LoginBehavior {
          * @param passwd 密码
          */
         void login(String username, String passwd);
+
+
+        /**
+         * 初始化权限
+         * @param activity
+         */
+        void initPermission(FragmentActivity activity);
     }
 
     //动作响应

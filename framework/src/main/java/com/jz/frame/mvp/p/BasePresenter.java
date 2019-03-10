@@ -1,7 +1,6 @@
 package com.jz.frame.mvp.p;
 
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.support.annotation.NonNull;
@@ -26,32 +25,28 @@ import io.reactivex.schedulers.Schedulers;
  * @describe 基础类presenter,完成声明周期的绑定以及初始化工作
  * @email jackzhouyu@foxmail.com
  **/
-public abstract class BasePresenter<M extends IModule, V extends IView>
-                                                        implements IPresenter {
+public abstract class BasePresenter<M extends IModule, V extends IView> implements IPresenter<V> {
 
-    private M module;
     private V view;
+    private M module;
     //缓存响应者的引用
     private CompositeDisposable disposableRaiser;
 
 
-    public BasePresenter(M module, V view) {
+    public BasePresenter(M module) {
         this.module = module;
-        this.view = view;
         disposableRaiser = new CompositeDisposable();
 
         bindLifcycle();
-    }
-
-    public M getModule() {
-        return module;
     }
 
     public V getView() {
         return view;
     }
 
-
+    public M getModule() {
+        return module;
+    }
 
     protected <T> void moduleExecute(@NonNull final Observable<T> observable, final Consumer<T> onNext){
         Disposable disposable = observable.subscribeOn(Schedulers.io())
@@ -70,10 +65,11 @@ public abstract class BasePresenter<M extends IModule, V extends IView>
                 .subscribe(onNext);
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     @Override
-    public void onCreate() {
+    public void attach(V view) {
+        this.view = view;
     }
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     @Override
@@ -92,7 +88,6 @@ public abstract class BasePresenter<M extends IModule, V extends IView>
      */
     private void bindLifcycle(){
             view.getLifecycle().addObserver(this);
-            view.getLifecycle().addObserver(module);
     }
 
 
@@ -103,5 +98,7 @@ public abstract class BasePresenter<M extends IModule, V extends IView>
     protected void addDisposable(Disposable disposable){
         disposableRaiser.add(disposable);
     }
+
+
 
 }

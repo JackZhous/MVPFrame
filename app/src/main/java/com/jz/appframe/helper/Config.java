@@ -9,6 +9,11 @@ package com.jz.appframe.helper;
  * @email jackzhouyu@foxmail.com
  **/
 public interface Config {
+
+    String BASE_URL = "www.qubaobei.com";
+    String SCHMES  = "http://";
+    int port = 80;
+
     int WEB_RESP_CODE_SUCCESS = 1;
 
 

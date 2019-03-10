@@ -1,19 +1,16 @@
-package com.jz.appframe.mvp.p;
+package com.jz.appframe.presenter;
 
 import android.Manifest;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 
-import com.jz.appframe.data.bean.User;
-import com.jz.appframe.mvp.m.IUserModule;
-import com.jz.frame.dagger.scope.ActivityScope;
+import com.jz.appframe.data.remote.LoginResponse;
+import com.jz.appframe.data.service.ModuleManager;
+import com.jz.appframe.presenter.behavior.LoginBehavior;
 import com.jz.frame.help.LogHelper;
 import com.jz.frame.mvp.p.BasePresenter;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-
-
-import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -29,31 +26,29 @@ import io.reactivex.functions.Consumer;
  *  响应Module层操作，并将反馈数据传递给adapter或者状态床底到UI
  * @email jackzhouyu@foxmail.com
  **/
-@ActivityScope
-public class LoginPresenter extends BasePresenter<IUserModule, LoginBehavior.LoginView>
+public class LoginPresenter extends BasePresenter<ModuleManager, LoginBehavior.LoginView>
                                                     implements  LoginBehavior.LoginAction{
 
-    @Inject
-    RxPermissions permissions;
 
-    @Inject
-    public LoginPresenter(IUserModule module, LoginBehavior.LoginView view) {
-        super(module, view);
+
+    public LoginPresenter(ModuleManager module) {
+        super(module);
     }
 
 
     @Override
     public void login(final String username, String passwd) {
-        super.moduleExecute(getModule().loginUser(username, passwd), new Consumer<User>() {
+        super.moduleExecute(getModule().login(username, passwd), new Consumer<LoginResponse>() {
             @Override
-            public void accept(User user) throws Exception {
+            public void accept(LoginResponse user) throws Exception {
                 getView().loginSuccess(user.getMessage());
             }
         });
     }
 
     @Override
-    public void onCreate() {
+    public void initPermission(FragmentActivity activity) {
+        RxPermissions permissions = new RxPermissions(activity);
 
         Disposable disposable =  permissions.requestEach(Manifest.permission.CAMERA)
                 .subscribe(new Consumer<Permission>() {
@@ -70,8 +65,8 @@ public class LoginPresenter extends BasePresenter<IUserModule, LoginBehavior.Log
                 });
 
         addDisposable(disposable);
-
     }
+
 
     @Override
     protected void onPresenterDestroy() {

@@ -9,15 +9,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.jz.appframe.MyApplication;
 import com.jz.frame.help.ToastHelper;
 import com.jz.frame.mvp.p.IPresenter;
 import com.jz.frame.mvp.v.IFragmentView;
 import com.jz.frame.mvp.v.IView;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
@@ -36,13 +33,12 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment
 
     private ProgressDialog dialog;
 
-    @Inject
     protected P presenter;
 
 
     protected abstract int provideLayout();
 
-    protected abstract void initDagger();
+    protected abstract P providePresenter();
 
 
 
@@ -50,7 +46,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initDagger();
+        presenter = providePresenter();
     }
 
     @Nullable
