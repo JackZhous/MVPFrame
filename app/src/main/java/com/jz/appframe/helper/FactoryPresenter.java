@@ -20,8 +20,8 @@ public class FactoryPresenter {
      * 使用前必须调用此方法，初始化service
      * @param service
      */
-    public void initFactory(ModuleManager service){
-        this.manager = service;
+    public static void initFactory(ModuleManager service){
+        manager = service;
     }
 
 

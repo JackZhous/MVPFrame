@@ -47,6 +47,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment
         super.onCreate(savedInstanceState);
 
         presenter = providePresenter();
+
+        presenter.attach(this);
     }
 
     @Nullable

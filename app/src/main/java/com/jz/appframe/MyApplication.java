@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @describe TODO
  * @email jackzhouyu@foxmail.com
  **/
-public class MyApplication extends Application {
+public class MyApplication extends MyApp {
 
     @Override
     public void onCreate() {
@@ -28,13 +28,11 @@ public class MyApplication extends Application {
 
         ApiService service = ApiService.Factory.getService(initNetConfig());
         ModuleManager manager = new ModuleManager(service);
-        FactoryPresenter factory = FactoryPresenter.getInstance();
-        factory.initFactory(manager);
-
+        FactoryPresenter.initFactory(manager);
     }
 
 
-    private NetConfig initNetConfig() {
+    public NetConfig initNetConfig() {
         return new NetConfig.Builder()
                 .setUrl(Config.BASE_URL)
                 .setSchmes(Config.SCHMES)

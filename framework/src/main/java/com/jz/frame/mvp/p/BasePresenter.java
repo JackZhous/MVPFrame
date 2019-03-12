@@ -36,9 +36,7 @@ public abstract class BasePresenter<M extends IModule, V extends IView> implemen
     public BasePresenter(M module) {
         this.module = module;
         disposableRaiser = new CompositeDisposable();
-
-        bindLifcycle();
-    }
+        }
 
     public V getView() {
         return view;
@@ -68,6 +66,7 @@ public abstract class BasePresenter<M extends IModule, V extends IView> implemen
     @Override
     public void attach(V view) {
         this.view = view;
+        bindLifcycle();
     }
 
 
