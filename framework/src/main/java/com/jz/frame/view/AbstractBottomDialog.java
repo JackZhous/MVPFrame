@@ -62,6 +62,7 @@ public abstract class AbstractBottomDialog  extends DialogFragment {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.windowAnimations = R.anim.anim_enter;
         window.setAttributes(params);
+	//这句不能少，否则布局宽高可能会受影响，无法撑满屏幕
         window.setBackgroundDrawableResource(background());
         super.onResume();
     }
