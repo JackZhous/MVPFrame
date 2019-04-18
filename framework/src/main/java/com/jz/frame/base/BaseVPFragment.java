@@ -44,11 +44,15 @@ public abstract class BaseVPFragment extends Fragment {
 
 
     /**
-     * 掩藏、显示时调用，只会调用两次，
-     * 相邻两个Fragment已经切换过一次，再次切换不会触发此方法，也没必要触发，因为第一次切换的时候已经缓存好了
-     * @param visible
+     * fragment显示时调用，掩藏时没必要回调，掩藏状态的Fragment可能会被复用
      */
-    protected abstract void onFragmentVisible(boolean visible);
+    protected abstract void onFragmentShow();
+
+
+    /**
+     * Fragment被销毁，用于清楚Fragment的一些状态
+     */
+    protected abstract void onDesView();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +73,7 @@ public abstract class BaseVPFragment extends Fragment {
          * 回调即可
          */
         if(isUserVisable && getUserVisibleHint()){
-            onFragmentVisible(true);
+            onFragmentShow();
         }
         hasFragmentVisible = true;
         return rootView;
@@ -83,7 +87,6 @@ public abstract class BaseVPFragment extends Fragment {
 
         //false为掩藏状态，系统调用时没有问题，可以直接反馈
         if(!isVisibleToUser){
-            onFragmentVisible(false);
             //更新Fragment状态
             hasFragmentVisible = false;
             return;
@@ -95,11 +98,15 @@ public abstract class BaseVPFragment extends Fragment {
          * 当前方法参数为true，就直接回调onFragmentVisible -- true
          */
         if(hasFragmentVisible){
-            onFragmentVisible(true);
+            onFragmentShow();
             hasFragmentVisible = true;
         }
     }
 
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        onDesView();
+    }
 }
