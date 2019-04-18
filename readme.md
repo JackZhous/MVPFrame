@@ -131,4 +131,4 @@ __每层每个类具体的逻辑如何请参考项目demo__
 
 已懒加载方式的Fragment，保证实现指哪儿打哪儿，实现原理见[源代码][1]
 
-[1]:www.baidu.com
+[1]:https://github.com/JackZhous/MVPFrame/blob/master/framework/src/main/java/com/jz/frame/base/BaseVPFragment.java
