@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * @author jackzhous
  * @package com.jz.appframe.ui.base
- * @filename BaseFragment
+ * @filename BaseVPFragment
  * date on 2019/3/8 5:13 PM
  * @describe TODO
  * @email jackzhouyu@foxmail.com
