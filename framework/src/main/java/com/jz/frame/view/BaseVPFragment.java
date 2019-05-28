@@ -1,4 +1,4 @@
-package com.jz.frame.base;
+package com.jz.frame.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
