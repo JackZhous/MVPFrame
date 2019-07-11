@@ -1,4 +1,4 @@
-package com.jz.appframe.mvp.p;
+package com.jz.appframe.presenter.behavior;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
@@ -20,7 +20,7 @@ import com.jz.frame.mvp.v.IView;
 public interface TestBehavior {
 
     //动作发起
-    interface TestAction extends IPresenter {
+    interface TestAction extends IPresenter<TestView> {
 
         /**
          * 刷新列表

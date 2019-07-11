@@ -13,7 +13,6 @@ import com.jz.frame.mvp.p.IPresenter;
 import com.jz.frame.mvp.v.IActivityView;
 import com.jz.frame.mvp.v.IView;
 
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
@@ -30,12 +29,8 @@ public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActiv
 
     private ProgressDialog dialog;
 
-    @Inject
     protected P presenter;
 
-    //自定义application时可以用这个实例强转
-    @Inject
-    MyApp myApp;
 
     protected abstract int layout();             //布局文件
 
@@ -43,7 +38,7 @@ public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActiv
      * 1. 初始化dagger依赖
      * 2. inject此类
      */
-    protected abstract void initDagger();
+    protected abstract P providePresenter();
 
 
 
@@ -52,7 +47,8 @@ public abstract class BaseActivity<P extends IPresenter>  extends AppCompatActiv
         super.onCreate(savedInstanceState);
         setContentView(layout());
         ButterKnife.bind(this);
-        initDagger();
+        presenter = providePresenter();
+        presenter.attach(this);
 
     }
 

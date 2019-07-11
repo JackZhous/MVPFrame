@@ -12,9 +12,6 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jz.appframe.R;
 import com.jz.appframe.data.bean.Data;
-import com.jz.appframe.data.bean.TestBean;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +26,6 @@ import butterknife.ButterKnife;
  **/
 public class TestAdapter  extends RecyclerArrayAdapter<Data> {
 
-    @Inject
     public TestAdapter(Context context) {
         super(context);
     }
