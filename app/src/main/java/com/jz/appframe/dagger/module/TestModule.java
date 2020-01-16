@@ -34,6 +34,6 @@ public abstract class TestModule {
     @FragmentScope
     @Provides
     static TestAdapter providAdapter(TestBehavior.TestView view){
-        return new TestAdapter(view.getFragmentContext());
+        return new TestAdapter(view.getActivity());
     }
 }

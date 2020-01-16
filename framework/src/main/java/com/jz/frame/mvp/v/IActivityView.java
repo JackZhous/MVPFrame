@@ -1,6 +1,7 @@
 package com.jz.frame.mvp.v;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * @author jackzhous
@@ -11,5 +12,5 @@ import android.app.Activity;
  * @email jackzhouyu@foxmail.com
  **/
 public interface IActivityView {
-    Activity getActivity();
+    FragmentActivity getActivity();
 }

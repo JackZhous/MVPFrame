@@ -35,7 +35,7 @@ public interface TestBehavior {
     }
 
     //动作响应
-    interface TestView extends IView, IFragmentView {
+    interface TestView extends IView, IActivityView {
         void showRecycleStatus(byte status);
     }
 

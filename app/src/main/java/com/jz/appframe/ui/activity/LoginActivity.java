@@ -25,7 +25,7 @@ import com.jz.frame.help.LogHelper;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
-                                        implements LoginBehavior.LoginView {
+                                                        implements LoginBehavior.LoginView {
 
     protected void initDagger(){
         LoginComponent component =  DaggerLoginComponent.builder()
@@ -73,4 +73,5 @@ public class LoginActivity extends BaseActivity<LoginBehavior.LoginAction>
         super.onDestroy();
         LogHelper.de_i("activity onDestroy");
     }
+
 }

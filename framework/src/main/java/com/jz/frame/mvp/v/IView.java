@@ -23,4 +23,6 @@ public interface IView extends LifecycleOwner {
     void closeDialog();
 
     void gotoLogin();
+
+    void gotoActivity(Class myclass);
 }

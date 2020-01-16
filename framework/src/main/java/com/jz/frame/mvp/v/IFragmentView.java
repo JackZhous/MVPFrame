@@ -12,5 +12,9 @@ import android.app.Activity;
  **/
 public interface IFragmentView {
 
-    Activity getFragmentContext();
+    /**
+     * 获取容器id，activity中添加fragment会用到容器id
+     * @return
+     */
+    int getContainerId();
 }

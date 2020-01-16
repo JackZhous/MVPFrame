@@ -15,6 +15,7 @@ import com.jz.frame.dagger.scope.FragmentScope;
 import com.jz.frame.help.LogHelper;
 import com.jz.frame.mvp.p.BaseObserver;
 import com.jz.frame.mvp.p.BasePresenter;
+import com.jz.frame.mvp.p.IResponse;
 
 import javax.inject.Inject;
 
@@ -53,41 +54,21 @@ public class TestPresenter extends BasePresenter<ITestModule, TestBehavior.TestV
     public void freshList() {
         LogHelper.de_i("freshList");
         cuurentPage++;
-        super.moduleExecute(getModule().loadList(limit, cuurentPage),
-                                        new BaseObserver<Data>(getView()){
-
-                                            @Override
-                                            public void onNext(Data data) {
-                                                total++;
-                                                adapter.add(data);
-                                                adapter.notifyDataSetChanged();
-                                            }
-
-                                            @Override
-                                            public void onSubscribe(Disposable d) {
-                                                addDisposable(d);
-                                            }
-
-                                            @Override
-                                            public void onError(Throwable e) {
-                                                super.onError(e);
-                                            }
-
-                                            @Override
-                                            public void onComplete() {
-                                                super.onComplete();
-                                                if(total == 311){
-                                                    adapter.add(null);
-                                                }
-                                            }
-                                        });
+        super.moduleExecute(getModule().loadList(limit, cuurentPage), new IResponse<Data>() {
+            @Override
+            public void GetResponse(Data data) {
+                total++;
+                adapter.add(data);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public void initRecycle(EasyRecyclerView recyclerView,
                             RecyclerArrayAdapter.OnLoadMoreListener load,
                             SwipeRefreshLayout.OnRefreshListener fresh) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getView().getFragmentContext(),
+        recyclerView.setLayoutManager(new LinearLayoutManager(getView().getActivity(),
                             LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapterWithProgress(adapter);
 

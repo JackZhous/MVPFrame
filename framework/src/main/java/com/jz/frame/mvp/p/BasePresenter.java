@@ -63,11 +63,16 @@ public abstract class BasePresenter<M extends IModule, V extends IView>
         disposableRaiser.add(disposable);
     }
 
-    protected <T> void moduleExecute(@NonNull final Observable<T> observable, final Observer<T> onNext){
+    protected <T> void moduleExecute(@NonNull final Observable<T> observable, final IResponse<T> onNext){
         observable.subscribeOn(Schedulers.io())
                 .compose(RxTransformHelper.<T>ioMainProgress(getView(), "加载中", false))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNext);
+                .subscribe(new BaseObserver<T>(view, disposableRaiser){
+                    @Override
+                    public void onNext(T t) {
+                        onNext.GetResponse(t);
+                    }
+                });
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

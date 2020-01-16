@@ -2,6 +2,7 @@ package com.jz.appframe.ui.base;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.jz.appframe.MyApplication;
 import com.jz.frame.help.ToastHelper;
 import com.jz.frame.mvp.p.IPresenter;
+import com.jz.frame.mvp.v.IActivityView;
 import com.jz.frame.mvp.v.IFragmentView;
 import com.jz.frame.mvp.v.IView;
 
@@ -31,7 +33,7 @@ import butterknife.ButterKnife;
  **/
 public abstract class BaseFragment<P extends IPresenter> extends Fragment
                                                         implements IView,
-                                                                IFragmentView {
+                                                        IActivityView {
 
 
     private ProgressDialog dialog;
@@ -123,12 +125,14 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment
         presenter = null;
     }
 
-    @Override
-    public Activity getFragmentContext() {
-        return getActivity();
-    }
+
 
     protected MyApplication getMyApp(){
         return (MyApplication) getActivity().getApplication();
+    }
+
+    @Override
+    public void gotoActivity(Class myclass) {
+        startActivity(new Intent(getActivity(), myclass));
     }
 }
