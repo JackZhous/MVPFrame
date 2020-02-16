@@ -29,6 +29,7 @@ public abstract class MyAppModule {
 
 
     //网络底层服务
+    @Singleton
     @Binds
     abstract IServiceCreator serviceCreator(ServiceCreator serviceCreator);
 
